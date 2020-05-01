@@ -1,0 +1,32 @@
+{
+  "name": "full-stack-vuejs-deploy-heroku",
+  "version": "1.0.0",
+  "description": "vuejs express heroku adaption a une app React",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leonafricain/full-stack-vuejs-deploy-heroku.git"
+  },
+  "keywords": [
+    "Vuejs",
+    "heroku"
+  ],
+  "author": "Hakim Mahiouz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leonafricain/full-stack-vuejs-deploy-heroku/issues"
+  },
+  "homepage": "https://github.com/leonafricain/full-stack-vuejs-deploy-heroku#readme",
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.3"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "sequelize": "^5.21.7"
+  }
+}
