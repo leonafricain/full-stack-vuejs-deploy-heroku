@@ -1,32 +1,106 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <h1 style="text-align: center">Weather App</h1>
+    <div class="blok">
+    <input type="text" placeholder="enter your city" v-model="city">
+    <button @click="addCity">Add city</button>
     </div>
-    <router-view/>
+    <!-- <div v-for="city in cities" :key="city.id">
+      <ul>
+        <li>{{city.id}}{{city.city_name}}</li>
+      </ul>
+
+    </div> -->
+    <pre>
+      {{weather}}
+    </pre>
   </div>
 </template>
+<script>
+import axios from 'axios'
+export default {
+  data () {
+    return {
+      city: '',
+      cities: [],
+      weather: {}
+    }
+  },
 
+  methods:{
+    getCities () {
+      axios.get('/api/cities')
+      .then(result  => {
+        console.log("resultat =>",result);
+        this.cities = result.data
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    addCity () {
+     /*  axios.post('/api/cities', {
+        city: this.city
+      }).then(result => {
+        console.log(result)
+        this.cities = this.getCities()
+      }).catch (err => console.log(err));
+ */
+    axios.get(`/api/weather/${this.city}`)
+    .then(resultat => {
+      console.log('weather result', resultat.data)
+      this.weather = resultat.data
+    }).catch (err => {
+      console.log(err.message)
+    })
+    }
+  },
+  mounted() {
+    this.getCities()
+  }
+}
+</script>
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+#app{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+#app h1{
+  font-family: Arial, sans-serif;
+  color: rgb(66, 107, 219);
+  padding: 23px;
+  text-shadow: 1px 1px 4px rgb(212, 200, 200);
+  margin: 0 auto;
+
+}
+div input{
+  padding: 10px;
+  width:100%;
+  max-width: 40%;
+  border-radius: 5px;
+  border:dotted 1px greenyellow;
+  box-shadow: 1px 2px 2px rgba(0,0,0, .3);
+  color: green;
+  font-size: 11px;
+
 }
 
-#nav {
-  padding: 30px;
+.blok {
+  display: block;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+button{
+  background-color: blueviolet;
+  color: white;
+  border:none;
+  padding: 3px 12px;
+  border-radius: 4px;
+  box-shadow: 2px 2px 4px grey;
+  cursor: pointer;
 }
 </style>
