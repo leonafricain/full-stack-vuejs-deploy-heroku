@@ -12,6 +12,21 @@ app.use(express.urlencoded({extended: false}));
 app.use('/api/cities', require('./api/cities'));
 app.use('/api/weather', require('./api/weather'))
 
+if (ENV === 'production') {
+    // static folder
+    app.use(express.static(path.join(__dirname, '../client/build')));
+
+    // Handle SPA
+   // app.get(/.*/, (req, res) => {
+     //   res.sendFile(__dirname + 'public/index.html')
+   // });
+
+   app.use((req, res) => {
+       res.sendFile(path.join(__dirname, '../client/build/index.html'))
+   })
+}
+
+
 app.listen(PORT, () => console.log(`server listening in port: ${PORT}...`));
 
 db.query('SELECT NOW()', (err, res) => {
